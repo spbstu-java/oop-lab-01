@@ -18,7 +18,11 @@ public class Hero {
         this.moveStrategy = moveStrategy;
     }
 
-    public void move() {
-        System.out.println(name + " - " + moveStrategy.move());
+    public String move() {
+        return moveStrategy.move();
+    }
+
+    public String GetName() {
+        return name;
     }
 }

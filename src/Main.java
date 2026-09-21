@@ -1,16 +1,20 @@
 
 public class Main {
     public static void main(String[] args) {
-        var hero1 = new Hero("Герой 1");
-        var hero2 = new Hero("Герой 2", new RunMove());
 
-        hero1.move();
-        hero2.move();
+        var menu = new Menu(
+                new Hero[] {
+                        new Hero("Герой 1"),
+                        new Hero("Герой 2", new RunMove())
+                },
+                new IMovable[] {
+                        new WalkMove(),
+                        new RunMove(),
+                        new FlyMove()
+                }
+        );
 
-        hero1.changeMovable(new FlyMove());
-        hero2.changeMovable(new WalkMove());
 
-        hero1.move();
-        hero2.move();
+        menu.showBaseMenu();
     }
 }
