@@ -1,0 +1,8 @@
+package com.example.lab1.strategy;
+
+import com.example.lab1.model.Point;
+
+public interface MovementStrategy
+{
+    void move(Point from, Point to);
+}
