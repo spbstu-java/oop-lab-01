@@ -1,0 +1,6 @@
+Current location: VILLAGE
+Walking from VILLAGE to MOUNTAIN
+Walking from MOUNTAIN to FOREST
+Riding a horse from FOREST to CASTLE
+Sailing by ship from CASTLE to CAMELOT
+Final location: CAMELOT
