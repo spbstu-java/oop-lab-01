@@ -139,36 +139,77 @@ class Hero {
 
 public class Main {
   public static void main(String[] args) {
-    // Создаём героя с начальной позицией и стратегией ходьбы.
-    Hero hero = new Hero(
-            "Артур",
-            new Point(0, 0),
-            new WalkingStrategy()
-    );
+    try (Scanner scanner = new Scanner(System.in)) {
+      Hero hero = new Hero(
+              "Артур",
+              new Point(0, 0),
+              new WalkingStrategy()
+      );
 
-    System.out.println("=== Начальное состояние ===");
-    hero.printStatus();
+      boolean running = true;
 
-    // Демонстрация ходьбы.
-    System.out.println("\n=== Перемещение пешком ===");
-    hero.move(new Point(3, 4));
+      while (running) {
+        System.out.println("\n=== Управление героем ===");
+        hero.printStatus();
 
-    // Меняем стратегию у того же героя.
-    System.out.println("\n=== Перемещение на лошади ===");
-    hero.setMovementStrategy(new HorseRidingStrategy());
-    hero.move(new Point(10, 8));
+        System.out.println("\n1. Выбрать ходьбу");
+        System.out.println("2. Выбрать езду на лошади");
+        System.out.println("3. Выбрать полёт");
+        System.out.println("4. Переместиться");
+        System.out.println("0. Выход");
 
-    // Ещё раз меняем стратегию.
-    System.out.println("\n=== Полёт ===");
-    hero.setMovementStrategy(new FlyingStrategy());
-    hero.move(new Point(20, 15));
+        int choice = readInt(scanner, "Ваш выбор: ");
 
-    // Показываем, что можно вернуться к предыдущему способу.
-    System.out.println("\n=== Снова пешком ===");
-    hero.setMovementStrategy(new WalkingStrategy());
-    hero.move(new Point(21, 15));
+        switch (choice) {
+          case 1:
+            hero.setMovementStrategy(new WalkingStrategy());
+            System.out.println("Выбран способ: пешком.");
+            break;
 
-    System.out.println("\n=== Итоговое состояние ===");
-    hero.printStatus();
+          case 2:
+            hero.setMovementStrategy(new HorseRidingStrategy());
+            System.out.println("Выбран способ: на лошади.");
+            break;
+
+          case 3:
+            hero.setMovementStrategy(new FlyingStrategy());
+            System.out.println("Выбран способ: полёт.");
+            break;
+
+          case 4:
+            int x = readInt(scanner, "Координата X: ");
+            int y = readInt(scanner, "Координата Y: ");
+            hero.move(new Point(x, y));
+            break;
+
+          case 0:
+            running = false;
+            System.out.println("Программа завершена.");
+            break;
+
+          default:
+            System.out.println("Неизвестный пункт меню.");
+        }
+      }
+    }
+  }
+
+  private static int readInt(Scanner scanner, String prompt) {
+    while (true) {
+      System.out.print(prompt);
+
+      if (!scanner.hasNextLine()) {
+        System.out.println("\nВвод завершён.");
+        System.exit(0);
+      }
+
+      String input = scanner.nextLine().trim();
+
+      try {
+        return Integer.parseInt(input);
+      } catch (NumberFormatException exception) {
+        System.out.println("Ошибка: введите целое число.");
+      }
+    }
   }
 }
