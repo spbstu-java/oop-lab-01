@@ -1,8 +1,10 @@
 public class Hero {
+  private final LocationGraph graph;
   private Location location;
   private MovementStrategy movementStrategy;
 
-  public Hero(MovementStrategy movementStrategy) {
+  public Hero(MovementStrategy movementStrategy, LocationGraph graph) {
+    this.graph = graph;
     this.location = Location.VILLAGE;
     this.movementStrategy = movementStrategy;
   }
@@ -20,7 +22,8 @@ public class Hero {
   }
 
   public void move(Location destination) {
-    movementStrategy.move(location, destination);
-    location = destination;
+    if (movementStrategy.move(location, destination, graph)) {
+      location = destination;
+    }
   }
 }
